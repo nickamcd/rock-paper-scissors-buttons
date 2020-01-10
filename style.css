@@ -1,3 +1,7 @@
+body {
+    background-color: darkgray;
+}
+
 button {
     background-color: beige;
     text-decoration-color: black;

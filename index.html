@@ -13,16 +13,35 @@
 
     <div id="results"></div>
 
-    <div id="score"></div>
+    <div id="playerScore">Your Score:</div>
+
+    <div id="computerScore">Computer Score:</div>
 
     <script>
+        let playScore = 0;
+        let compScore = 0;
+
         function computerPlay() {
             let options = ["Rock", "Paper", "Scissors"];
             let choice = Math.floor(Math.random() * 3);
             return options[choice];
         }
 
+        function updatePlayerScore() {
+            playScore++;
+            const playerScore = document.querySelector("#playerScore");
+            playerScore.textContent = "Your Score:\n" + playScore;
+        }
+
+        function updateComputerScore() {
+            compScore++;
+            const computerScore = document.querySelector("#computerScore");
+            computerScore.textContent = "Computer Score:\n" + compScore;
+        }
+
         function playRound(playerSelection, computerSelection) {
+            const playerDiv = document.querySelector("#playerScore");
+
             let play = playerSelection.toLowerCase();
             let comp = computerSelection.toLowerCase();
 
@@ -53,15 +72,21 @@
                 }
             }
 
+            if (result == "Lose") {
+                updateComputerScore();
+            }
+            else {
+                updatePlayerScore();
+            }
 
-            return `You ${result}! ${winner} beats ${loser}`;
+            return `You ${result}! ${winner} beats ${loser}!`;
         }
 
-        const buttons = document.querySelectorAll('button');
+        const buttons = document.querySelectorAll("button");
 
         buttons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                const results = document.querySelector('#results');
+            button.addEventListener("click", (e) => {
+                const results = document.querySelector("#results");
                 results.textContent = playRound(button.id, computerPlay());
                 console.log(results.textContent);
             });
